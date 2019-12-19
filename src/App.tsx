@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
+import { AudioPlayer, Loop, Stage, KeyListener, World } from 'react-game-kit';
 import './App.css';
+import Matter from 'matter-js';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component{
+  constructor(props: any){
+    super(props);
+    this.state = {
+      fade: true
+    };
+
+    this.keyListener = new KeyListener();
+    window.AudioContext = window.AudioContext
+  }
+
+  physicsInit(engine) {
+    const ground = Matter.Bodies.rectangle(512 * 3, 448, 1024 * 3, 64, {
+      isStatic: true,
+    });
+
+    const leftWall = Matter.Bodies.rectangle(-64, 288, 64, 576, {
+      isStatic: true,
+    });
+
+    const rightWall = Matter.Bodies.rectangle(3008, 288, 64, 576, {
+      isStatic: true,
+    });
+
+    Matter.World.addBody(engine.world, ground);
+    Matter.World.addBody(engine.world, leftWall);
+    Matter.World.addBody(engine.world, rightWall);
+  };
+
+  render(){
+    return (
+      <Loop>
+        <Stage style={{ background: '#3a9bdc' }}>
+          <World onInit={this.physicsInit}>
+          </World>
+        </Stage>
+      </Loop>
+    );
+  }
 }
 
 export default App;
