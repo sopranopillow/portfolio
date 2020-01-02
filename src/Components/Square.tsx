@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { subscribeToLoop } from '../Engine/actions';
 import { IAppState } from '../Engine/store/store';
-import { IKey } from '../containers/Loop';
+import { IKey } from '../Engine/Components/Functionality/Loop';
 
 export interface ISquareState {
     left: number;
@@ -18,8 +18,8 @@ class Square extends React.Component<ISquareProps, ISquareState>{
     constructor(props: ISquareProps){
         super(props);
         this.state = ({
-            left: 0,
-            top: 0,
+            left: 42,
+            top: 42,
             movingRight: true
         });
     }
@@ -60,8 +60,16 @@ class Square extends React.Component<ISquareProps, ISquareState>{
     }
 
     render(){
+        const styles: React.CSSProperties = {
+            position: 'relative',
+            backgroundColor:'lightblue',
+            width: '20px',
+            height: '20px',
+            left: this.state.left + 'px',
+            top: this.state.top + 'px'
+        }
         return (
-            <div style={{position: 'relative', backgroundColor:'lightblue', width: '20px', height: '20px', left: this.state.left + 'px', top: this.state.top + 'px'}}/>
+            <div style={styles}/>
         );
     }
 }

@@ -1,0 +1,12 @@
+.open{
+    outline-width: 1px;
+    outline-color: blue;
+    position: absolute;
+}
+
+.wall{
+    background-color: rgb(206, 72, 72);
+    outline-width: 1px;
+    outline-color: blueviolet;
+    position: absolute;
+}

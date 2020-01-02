@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IAppState } from '../Engine/store/store';
-import { ISubscription } from '../Engine/reducers';
+import { IAppState } from '../../store/store';
+import { ISubscription } from '../../reducers';
 import './Loop.styles.css';
 
 interface ILoopProps {
@@ -101,7 +101,7 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
     }
 
     public render() {
-        const { fps, keys } = this.state;
+        const { fps } = this.state;
         return (
             <div className="loopStats">
                 <div>{`fps: ${fps}`}</div>
