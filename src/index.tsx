@@ -5,7 +5,7 @@ import App from './Components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
-import configureStore, { IAppState } from './store/store';
+import configureStore, { IAppState } from './Engine/store/store';
 
 interface IProps {
     store: Store<IAppState>;

@@ -1,21 +1,48 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IAppState } from '../store/store';
-import { ISubscription } from '../reducers/LoopReducer';
+import { IAppState } from '../Engine/store/store';
+import { ISubscription } from '../Engine/reducers';
+import './Loop.styles.css';
 
 interface ILoopProps {
     loop: ISubscription[];
 }
 
-class Loop extends React.Component<ILoopProps> {
+interface ILoopState {
+    requestID?: number;
+}
+
+class Loop extends React.Component<ILoopProps, ILoopState> {
+
+    componentDidMount(){
+        this.setState({
+            requestID: window.requestAnimationFrame(this.loop)
+        });
+    }
+
+    componentWillUnmount() {
+        const {requestID} = this.state;
+
+        if(requestID){
+            window.cancelAnimationFrame(requestID);
+        }
+    }
+
+    loop = () => {
+        this.props.loop.forEach(func => {
+            func.func();
+        });
+
+        this.setState({
+            requestID: window.requestAnimationFrame(this.loop)
+        })
+    }
+
     public render() {
-        const { loop } = this.props;
         return (
-            <>
-            {loop && loop.map(func => {
-                func.func();
-            })}
-            </>
+            <div className="loopStats">
+                <div>fps</div>
+            </div>
         );
     }
 }

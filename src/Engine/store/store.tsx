@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
 import thunk from 'redux-thunk';
-import { ILoopState, loopReducer } from '../reducers/LoopReducer';
+import { ILoopState, loopReducer } from '../reducers';
 
 export interface IAppState {
     loopState: ILoopState;
