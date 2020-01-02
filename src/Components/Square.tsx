@@ -2,9 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { subscribeToLoop } from '../Engine/actions';
 import { IAppState } from '../Engine/store/store';
+import { IKey } from '../containers/Loop';
 
 export interface ISquareState {
     left: number;
+    top: number;
     movingRight: boolean;
 }
 
@@ -17,28 +19,49 @@ class Square extends React.Component<ISquareProps, ISquareState>{
         super(props);
         this.state = ({
             left: 0,
+            top: 0,
             movingRight: true
         });
     }
 
     componentDidMount(){
-        this.props.subscribeToLoop(this.update);
+        this.props.subscribeToLoop(this.update, true);
     }
 
-    update = () => {
-        if(this.state.left > 200 || this.state.left < 0){
-            this.setState({
-                movingRight: !this.state.movingRight
-            })
-        }
-        this.setState({
-            left: this.state.left+(this.state.movingRight ? 1 : -1)
-        });
+    update = (keys: IKey[]) => {
+        keys.forEach((key: IKey) =>{
+            if(key.isPressed){
+                switch(key.key){
+                    case 'a':
+                        if(key.isPressed){
+                            this.setState({
+                                left: this.state.left-1
+                            })
+                        }
+                        break;
+                    case 's':
+                        this.setState({
+                            top: this.state.top+1
+                        })
+                        break;
+                    case 'd':
+                        this.setState({
+                            left: this.state.left+1
+                        })
+                        break;
+                    case 'w':
+                        this.setState({
+                            top: this.state.top-1
+                        })
+                        break;
+                }
+            }
+        })
     }
 
     render(){
         return (
-            <div style={{position: 'relative', backgroundColor:'lightblue', width: '20px', height: '20px', left: this.state.left + 'px'}}/>
+            <div style={{position: 'relative', backgroundColor:'lightblue', width: '20px', height: '20px', left: this.state.left + 'px', top: this.state.top + 'px'}}/>
         );
     }
 }

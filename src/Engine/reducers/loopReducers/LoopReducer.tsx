@@ -3,7 +3,6 @@ import { ILoopState } from './Types';
 
 
 const initialLoopState: ILoopState = {
-    lastIDUsed: -1,
     subscriptions: []
 }
 
@@ -15,11 +14,10 @@ export const loopReducer = (
         //case LoopActionTypes.subscribe: -- do somethin
         case LoopActionTypes.SUBSCRIBE:
             return {
-                lastIDUsed: state.lastIDUsed+1,
                 subscriptions: [
                     ...state.subscriptions,
                     {
-                        id: state.lastIDUsed+1,
+                        inputCheck: action.inputCheck,
                         func: action.func
                     }
                 ]

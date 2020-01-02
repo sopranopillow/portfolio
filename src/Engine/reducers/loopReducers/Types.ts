@@ -1,9 +1,8 @@
 export interface ISubscription {
-    id: number;
+    inputCheck: boolean;
     func: Function;
 }
 
 export interface ILoopState {
-    lastIDUsed: number;
     subscriptions: ISubscription[];
 }

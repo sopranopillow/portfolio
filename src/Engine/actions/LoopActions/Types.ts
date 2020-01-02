@@ -5,6 +5,7 @@ export enum LoopActionTypes {
 export interface ILoopSubscribe {
     type: LoopActionTypes.SUBSCRIBE;
     func: Function;
+    inputCheck: boolean;
 }
 
 // ILoopSubscribe | ILoopX
