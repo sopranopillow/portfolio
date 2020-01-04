@@ -3,7 +3,8 @@ import { ILoopState } from './Types';
 
 
 const initialLoopState: ILoopState = {
-    subscriptions: []
+    subscriptions: [],
+    boundariesFunc: []
 }
 
 export const loopReducer = (
@@ -11,7 +12,6 @@ export const loopReducer = (
     action: LoopActions
 ): ILoopState => {
     switch(action.type) {
-        //case LoopActionTypes.subscribe: -- do somethin
         case LoopActionTypes.SUBSCRIBE:
             return {
                 subscriptions: [
@@ -20,8 +20,19 @@ export const loopReducer = (
                         inputCheck: action.inputCheck,
                         func: action.func
                     }
-                ]
+                ],
+                boundariesFunc: state.boundariesFunc
             };
+        case LoopActionTypes.ADDCOLLISIONOBJ:
+            return {
+                subscriptions: state.subscriptions,
+                boundariesFunc: [
+                    ...state.boundariesFunc,
+                    {
+                        boundariesFunc: action.boundariesFunc,
+                    }
+                ]
+            }
         default:
             return state;
     }

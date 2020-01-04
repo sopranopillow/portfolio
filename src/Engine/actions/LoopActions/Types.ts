@@ -1,5 +1,8 @@
+import { IBoundaries } from "../../Components/GeneralUtils/Collisions";
+
 export enum LoopActionTypes {
     SUBSCRIBE = 'SUBSCRIBE',
+    ADDCOLLISIONOBJ = 'ADDCOLLISIONOBJ'
 }
 
 export interface ILoopSubscribe {
@@ -8,5 +11,10 @@ export interface ILoopSubscribe {
     inputCheck: boolean;
 }
 
+export interface ILoopAddCollisionObj {
+    type: LoopActionTypes.ADDCOLLISIONOBJ;
+    boundariesFunc: Function;
+}
+
 // ILoopSubscribe | ILoopX
-export type LoopActions = ILoopSubscribe;
+export type LoopActions = ILoopSubscribe | ILoopAddCollisionObj;

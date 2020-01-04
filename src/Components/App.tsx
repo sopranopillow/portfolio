@@ -2,8 +2,14 @@ import React from 'react';
 import Loop from '../Engine/Components/Functionality/Loop';
 import Square from '../Components/Square';
 import { Terrain } from '../Engine/Components/Map/Terrain';
+import { subscribeToLoop, addColissionObj } from '../Engine/actions';
 
-class App extends React.Component{
+interface IAppProps{
+  subscribeToLoop: typeof subscribeToLoop;
+  addCollisionObj: typeof addColissionObj;
+}
+
+class App extends React.Component<IAppProps>{
   render(){
     return (
       <>
