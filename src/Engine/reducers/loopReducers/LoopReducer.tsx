@@ -3,8 +3,7 @@ import { ILoopState } from './Types';
 
 
 const initialLoopState: ILoopState = {
-    subscriptions: [],
-    boundariesFunc: []
+    subscriptions: []
 }
 
 export const loopReducer = (
@@ -18,21 +17,13 @@ export const loopReducer = (
                     ...state.subscriptions,
                     {
                         inputCheck: action.inputCheck,
-                        func: action.func
-                    }
-                ],
-                boundariesFunc: state.boundariesFunc
-            };
-        case LoopActionTypes.ADDCOLLISIONOBJ:
-            return {
-                subscriptions: state.subscriptions,
-                boundariesFunc: [
-                    ...state.boundariesFunc,
-                    {
-                        boundariesFunc: action.boundariesFunc,
+                        func: action.func,
+                        functionType: action.functionType,
+                        collisionFunction: action.collisionFunction,
+                        collides: action.collides
                     }
                 ]
-            }
+            };
         default:
             return state;
     }

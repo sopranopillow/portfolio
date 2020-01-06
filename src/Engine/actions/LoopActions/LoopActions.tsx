@@ -1,17 +1,19 @@
 import { LoopActions, LoopActionTypes } from './Types';
-import { IBoundaries } from '../../Components/GeneralUtils/Collisions';
+import { FunctionType } from '../../reducers';
 
-export const subscribeToLoop = (func: Function, inputCheck?: boolean): LoopActions => {
+export const subscribeToLoop = (
+    func: Function,
+    functionType: FunctionType,
+    inputCheck?: boolean,
+    collisionFunction?: Function,
+    collides?: boolean
+): LoopActions => {
     return {
         type: LoopActionTypes.SUBSCRIBE,
         func: func,
-        inputCheck: (inputCheck === undefined) ? false : inputCheck
+        functionType: functionType,
+        inputCheck: (inputCheck === undefined) ? false : inputCheck,
+        collisionFunction: collisionFunction,
+        collides: (collides === undefined) ? false : collides
     };
 };
-
-export const addColissionObj = (boundariesFunc: Function, hole: boolean): LoopActions => {
-    return {
-        type: LoopActionTypes.ADDCOLLISIONOBJ,
-        boundariesFunc: boundariesFunc,
-    }
-}

@@ -1,20 +1,18 @@
-import { IBoundaries } from "../../Components/GeneralUtils/Collisions";
+import { FunctionType } from "../../reducers";
 
 export enum LoopActionTypes {
     SUBSCRIBE = 'SUBSCRIBE',
-    ADDCOLLISIONOBJ = 'ADDCOLLISIONOBJ'
+    ADDCOLLISIONFUNC = 'ADDCOLLISIONFUNC'
 }
 
 export interface ILoopSubscribe {
     type: LoopActionTypes.SUBSCRIBE;
     func: Function;
     inputCheck: boolean;
-}
-
-export interface ILoopAddCollisionObj {
-    type: LoopActionTypes.ADDCOLLISIONOBJ;
-    boundariesFunc: Function;
+    functionType: FunctionType;
+    collisionFunction: Function | undefined;
+    collides: boolean;
 }
 
 // ILoopSubscribe | ILoopX
-export type LoopActions = ILoopSubscribe | ILoopAddCollisionObj;
+export type LoopActions = ILoopSubscribe;

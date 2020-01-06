@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { Cell } from './Cell';
+import Cell from './Cell';
+import { IAppState } from '../../store/store';
+import { subscribeToLoop } from '../../actions';
+import { connect } from 'react-redux';
 
 export interface ITerrainProps {
     left: number;
@@ -10,7 +13,7 @@ export interface ITerrainProps {
     sizeOfCell: number;
 }
 
-export class Terrain extends React.Component<ITerrainProps>{
+class Terrain extends React.Component<ITerrainProps>{
     private map: JSX.Element[] = [];
 
     componentWillMount(){
@@ -39,3 +42,13 @@ export class Terrain extends React.Component<ITerrainProps>{
         );
     }
 }
+
+const mapStateToProps = (store: IAppState) => {
+    return {
+        loop: {
+            subscriptions: store.loopState.subscriptions
+        }
+    };
+};
+
+export default connect(mapStateToProps,{ subscribeToLoop })(Terrain);

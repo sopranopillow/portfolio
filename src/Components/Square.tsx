@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { subscribeToLoop, addColissionObj } from '../Engine/actions';
+import { subscribeToLoop } from '../Engine/actions';
 import { IAppState } from '../Engine/store/store';
 import { IKey } from '../Engine/Components/Functionality/Loop';
 import { IBoundaries } from '../Engine/Components/GeneralUtils/Collisions';
+import { FunctionType } from '../Engine/reducers';
 
 export interface ISquareState {
     left: number;
@@ -13,7 +14,6 @@ export interface ISquareState {
 
 interface ISquareProps {
     subscribeToLoop: typeof subscribeToLoop;
-    addCollisionObj: typeof addColissionObj;
     size: number;
 }
 
@@ -21,8 +21,8 @@ class Square extends React.Component<ISquareProps, ISquareState>{
     constructor(props: ISquareProps){
         super(props);
         this.state = ({
-            left: 42,
-            top: 42,
+            left: 102,
+            top:102,
             movingRight: true
         });
     }
@@ -32,16 +32,20 @@ class Square extends React.Component<ISquareProps, ISquareState>{
 
         return{
             numberOfEdges: 4,
-            edges: [[],[],[],[]],
+            edges: [
+                [left, top],
+                [left + this.props.size, top],
+                [left + this.props.size, top + this.props.size],
+                [left, top + this.props.size]],
             hole: false
         }
     }
 
     componentDidMount(){
-        this.props.subscribeToLoop(this.update, true);
+        this.props.subscribeToLoop(this.movement, FunctionType.MOVEMENT, true, this.generateBoundaries, true);
     }
 
-    update = (keys: IKey[]) => {
+    movement = (keys: IKey[]) => {
         keys.forEach((key: IKey) =>{
             if(key.isPressed){
                 switch(key.key){
@@ -77,7 +81,7 @@ class Square extends React.Component<ISquareProps, ISquareState>{
         const { left, top } = this.state;
         const styles: React.CSSProperties = {
             position: 'relative',
-            backgroundColor:'lightblue',
+            backgroundColor:'lightgreen',
             width: size + 'px',
             height: size + 'px',
             left: left + 'px',
@@ -92,10 +96,9 @@ class Square extends React.Component<ISquareProps, ISquareState>{
 const mapStateToProps = (store: IAppState) => {
     return {
         loop: {
-            subscriptions: store.loopState.subscriptions,
-            boundariesFunc: store.loopState.boundariesFunc
+            subscriptions: store.loopState.subscriptions
         }
     };
 };
 
-export default connect(mapStateToProps,{ subscribeToLoop, addColissionObj })(Square);
+export default connect(mapStateToProps,{ subscribeToLoop })(Square);

@@ -1,15 +1,16 @@
-import { IBoundaries } from "../../Components/GeneralUtils/Collisions";
-
-export interface ISubscription {
-    inputCheck: boolean;
-    func: Function;
+export enum FunctionType {
+    MOVEMENT = 'MOVEMENT',
+    GENERAL = 'GENERAL'
 }
 
-export interface ICollisionObj {
-    boundariesFunc: Function;
+export interface ISubscription {
+    func: Function;
+    inputCheck: boolean;
+    functionType: FunctionType;
+    collisionFunction: Function | undefined;
+    collides: boolean;
 }
 
 export interface ILoopState {
     subscriptions: ISubscription[];
-    boundariesFunc: ICollisionObj[];
 }

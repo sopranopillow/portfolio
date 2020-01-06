@@ -1,12 +1,13 @@
 import React from 'react';
 import Loop from '../Engine/Components/Functionality/Loop';
 import Square from '../Components/Square';
-import { Terrain } from '../Engine/Components/Map/Terrain';
-import { subscribeToLoop, addColissionObj } from '../Engine/actions';
+import Terrain from '../Engine/Components/Map/Terrain';
+import { subscribeToLoop } from '../Engine/actions';
+import { IAppState } from '../Engine/store/store';
+import { connect } from 'react-redux';
 
 interface IAppProps{
   subscribeToLoop: typeof subscribeToLoop;
-  addCollisionObj: typeof addColissionObj;
 }
 
 class App extends React.Component<IAppProps>{
@@ -16,9 +17,9 @@ class App extends React.Component<IAppProps>{
         <Terrain
           left={0}
           top={0}
-          width={10}
-          height={20}
-          sizeOfCell={40}
+          width={20}
+          height={10}
+          sizeOfCell={100}
           cells={[
             true, true, true, true, true, true, true, true, true, true,
             true, false, true, false, false, true, false, true, false, true,
@@ -41,11 +42,19 @@ class App extends React.Component<IAppProps>{
             true, false, true, false, false, true, false, true, false, true,
             true, true, true, true, true, true, true, true, true, true,
           ]}/>
-        <Square/>
+        <Square size={40}/>
         <Loop/>
       </>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (store: IAppState) => {
+  return {
+      loop: {
+          subscriptions: store.loopState.subscriptions
+      }
+  };
+};
+
+export default connect(mapStateToProps,{ subscribeToLoop })(App);

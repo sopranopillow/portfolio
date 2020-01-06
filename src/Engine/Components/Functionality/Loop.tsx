@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../../store/store';
-import { ISubscription } from '../../reducers';
+import { ISubscription, FunctionType } from '../../reducers';
 import './Loop.styles.css';
+import { checkCollision } from '../GeneralUtils/Collisions';
 
 interface ILoopProps {
     loop: ISubscription[];
@@ -89,12 +90,30 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
         }
 
         this.props.loop.forEach(func => {
-            if(func.inputCheck){
-                func.func(this.state.keys);
-            }else{
-                func.func();
+            if(func.functionType === FunctionType.MOVEMENT){
+                if(this.props.loop.map(objToCheck => {
+                    if(objToCheck.collides && func !== objToCheck){
+                        return checkCollision(func, objToCheck);
+                    }else{
+                        return false;
+                    }
+                }).indexOf(true) < 0){
+                    if(func.inputCheck){
+                        func.func(this.state.keys);
+                    }else{
+                        func.func();
+                    }
+                }
+            }
+            else{
+                if(func.inputCheck){
+                    func.func(this.state.keys);
+                }else{
+                    func.func();
+                }
             }
         });
+
         this.setState({
             requestID: window.requestAnimationFrame(this.loop)
         })
