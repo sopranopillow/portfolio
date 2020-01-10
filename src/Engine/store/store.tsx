@@ -1,17 +1,22 @@
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
+import { applyMiddleware, combineReducers, createStore, Store, StoreEnhancer, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { ILoopState, loopReducer } from '../reducers';
+import { objsReducer, playerReducer, IPlayerState, IObjsState } from '../reducers';
 
 export interface IAppState {
-    loopState: ILoopState;
+    playerState: IPlayerState;
+    generalState: IObjsState;
 }
 
 const rootReducer = combineReducers<IAppState>({
-    loopState: loopReducer
+    playerState: playerReducer,
+    generalState: objsReducer
 });
 
 const configureStore = (): Store<IAppState, any> => {
-    const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
+    const store = createStore(rootReducer, undefined, compose(
+        applyMiddleware(thunk),
+        (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+      ));
     return store;
 }
 

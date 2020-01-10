@@ -1,2 +1,2 @@
-export * from './LoopActions/LoopActions';
-export * from './LoopActions/Types';
+export * from './ObjectsActions';
+export * from './PlayerActions';

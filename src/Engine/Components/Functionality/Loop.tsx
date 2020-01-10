@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../../store/store';
-import { ISubscription, FunctionType } from '../../reducers';
 import './Loop.styles.css';
-import { checkCollision } from '../GeneralUtils/Collisions';
-
-interface ILoopProps {
-    loop: ISubscription[];
-}
 
 interface ILoopState {
     requestID: number;
@@ -20,7 +14,7 @@ export interface IKey {
     isPressed: boolean;
 }
 
-class Loop extends React.Component<ILoopProps, ILoopState> {
+class Loop extends React.Component<{}, ILoopState> {
     public readonly state: Readonly<ILoopState> = {
         requestID: 0,
         fps: 0,
@@ -79,9 +73,7 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
 
     loop = () => {
         this.timeMeasurements.push(performance.now());
-
         const msPassed = this.timeMeasurements[this.timeMeasurements.length-1] - this.timeMeasurements[0];
-
         if (msPassed >= 0.5 * 1000) {
             this.setState({
                 fps: Math.round(this.timeMeasurements.length / msPassed * 1000 * 2) / 2
@@ -89,30 +81,9 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
             this.timeMeasurements = [];
         }
 
-        this.props.loop.forEach(func => {
-            if(func.functionType === FunctionType.MOVEMENT){
-                if(this.props.loop.map(objToCheck => {
-                    if(objToCheck.collides && func !== objToCheck){
-                        return checkCollision(func, objToCheck);
-                    }else{
-                        return false;
-                    }
-                }).indexOf(true) < 0){
-                    if(func.inputCheck){
-                        func.func(this.state.keys);
-                    }else{
-                        func.func();
-                    }
-                }
-            }
-            else{
-                if(func.inputCheck){
-                    func.func(this.state.keys);
-                }else{
-                    func.func();
-                }
-            }
-        });
+        // update
+
+        // render
 
         this.setState({
             requestID: window.requestAnimationFrame(this.loop)
@@ -131,7 +102,8 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
 
 const mapStateToProps = (store: IAppState) => {
     return {
-        loop: store.loopState.subscriptions
+        playerState: store.playerState,
+        generalState: store.generalState
     };
 };
 
