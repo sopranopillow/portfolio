@@ -1,19 +1,23 @@
-import { IPlayerObject } from "../reducers";
+import { IBoundaries } from "../GeneralUtils";
 
 export enum PlayerActionTypes {
     SET = 'SET'
 }
 
-export interface ISetlayer {
+export interface ISetPlayer {
     type: PlayerActionTypes.SET;
-    obj: IPlayerObject;
+    boundaries: IBoundaries;
+    velocity: number;
+    nextPos: Function;
 }
 
-export const setPlayer = ( obj: IPlayerObject ): PlayerActions => {
+export const setPlayer = ( boundaries: IBoundaries, velocity: number, nextPos: Function ): PlayerActions => {
     return {
         type: PlayerActionTypes.SET,
-        obj: obj
+        boundaries: boundaries,
+        velocity: velocity,
+        nextPos: nextPos
     }
 }
 
-export type PlayerActions = ISetlayer;
+export type PlayerActions = ISetPlayer;

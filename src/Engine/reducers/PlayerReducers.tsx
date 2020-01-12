@@ -1,26 +1,28 @@
-import { IGameObject } from "./ObjectsReducers";
 import { PlayerActions, PlayerActionTypes } from "../actions";
+import { IBoundaries } from "../GeneralUtils";
 
-export interface IPlayerObject extends IGameObject{
+export interface IPlayerObject{
+    boundaries?: IBoundaries;
     velocity: number;
+    nextPos: Function;
 }
 
-export interface IPlayerState {
-    obj: IPlayerObject | undefined;
-}
-
-const initialPlayerState: IPlayerState = {
-    obj: undefined
+const initialPlayerState: IPlayerObject = {
+    boundaries: undefined,
+    velocity: 0,
+    nextPos: ()=>{}
 }
 
 export const playerReducer = (
     state = initialPlayerState,
     action: PlayerActions
-): IPlayerState => {
+): IPlayerObject => {
     switch(action.type) {
         case PlayerActionTypes.SET:
             return {
-                obj: action.obj
+                boundaries: action.boundaries,
+                velocity: action.velocity,
+                nextPos: action.nextPos
             }
         default:
             return state;

@@ -2,6 +2,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../../store/store';
 import './Loop.styles.css';
+import { IObjsState, IGameObject, IPlayerObject } from '../../reducers';
+import { checkCollision, replaceBoundariesValues } from '../../GeneralUtils/Collision';
+import { addObject, setPlayer } from '../../actions';
+
+interface ILoopProps {
+    playerState: IPlayerObject;
+    generalState: IObjsState;
+}
 
 interface ILoopState {
     requestID: number;
@@ -14,7 +22,7 @@ export interface IKey {
     isPressed: boolean;
 }
 
-class Loop extends React.Component<{}, ILoopState> {
+class Loop extends React.Component<ILoopProps, ILoopState> {
     public readonly state: Readonly<ILoopState> = {
         requestID: 0,
         fps: 0,
@@ -38,8 +46,7 @@ class Loop extends React.Component<{}, ILoopState> {
     }
 
     componentWillUnmount() {
-        const {requestID} = this.state;
-
+        const { requestID } = this.state;
         if(requestID){
             window.cancelAnimationFrame(requestID);
         }
@@ -82,6 +89,15 @@ class Loop extends React.Component<{}, ILoopState> {
         }
 
         // update
+        const playerObj = this.props.playerState;
+        if(playerObj && playerObj.boundaries){ // checking if player object exists
+            const nextPos = playerObj.nextPos(this.state.keys, playerObj.boundaries);
+            if(this.props.generalState.objs.filter((object: IGameObject) => {
+                return checkCollision(nextPos, object.boundaries);
+            }) === undefined){
+                replaceBoundariesValues(playerObj.boundaries, nextPos);
+            }
+        }
 
         // render
 
@@ -107,4 +123,4 @@ const mapStateToProps = (store: IAppState) => {
     };
 };
 
-export default connect(mapStateToProps)(Loop);
+export default connect(mapStateToProps, { addObject, setPlayer })(Loop);

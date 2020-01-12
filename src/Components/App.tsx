@@ -14,7 +14,7 @@ class App extends React.Component<IAppProps>{
   render(){
     return (
       <>
-        <Square speed={2} size={40}/>
+        <Square velocity={2} size={40}/>
         <Loop/>
       </>
     );
