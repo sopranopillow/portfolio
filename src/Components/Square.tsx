@@ -1,84 +1,79 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { subscribeToLoop } from '../Engine/actions';
-import { IAppState } from '../Engine/store/store';
-import { IKey } from '../Engine/Components/Functionality/Loop';
-import { IBoundaries } from '../Engine/Components/GeneralUtils/Collisions';
-import { FunctionType } from '../Engine/reducers';
+import { setPlayer } from '../GameLogic/actions';
+import { IAppState } from '../GameLogic/store/store';
+import { IKey } from '../GameLogic/Components/Functionality/Loop';
+import { IBoundaries } from '../GameLogic/Components/GeneralUtils/Collisions';
 
 export interface ISquareState {
-    left: number;
-    top: number;
-    movingRight: boolean;
+    position: IBoundaries;
 }
 
 interface ISquareProps {
-    subscribeToLoop: typeof subscribeToLoop;
+    setPlayer: typeof setPlayer;
     size: number;
+    left: number;
+    top: number;
 }
 
 class Square extends React.Component<ISquareProps, ISquareState>{
     constructor(props: ISquareProps){
         super(props);
         this.state = ({
-            left: 102,
-            top:102,
-            movingRight: true
+            position: {
+                topLeft: {
+                    x: this.props.left,
+                    y: this.props.top
+                },
+                bottomRight: {
+                    x: this.props.left + this.props.size,
+                    y: this.props.top + this.props.size
+                }
+            }
         });
     }
 
-    generateBoundaries = (): IBoundaries => {
-        const { top, left } = this.state;
-
-        return{
-            numberOfEdges: 4,
-            edges: [
-                [left, top],
-                [left + this.props.size, top],
-                [left + this.props.size, top + this.props.size],
-                [left, top + this.props.size]],
-            hole: false
-        }
-    }
-
     componentDidMount(){
-        this.props.subscribeToLoop(this.movement, FunctionType.MOVEMENT, true, this.generateBoundaries, true);
+        this.props.setPlayer(this.updateMovement, this.nextPos);
     }
 
-    movement = (keys: IKey[]) => {
+    nextPos = (keys: IKey[]): IBoundaries => {
+        let newPos: IBoundaries = this.state.position;
+
         keys.forEach((key: IKey) =>{
             if(key.isPressed){
                 switch(key.key){
                     case 'a':
-                        if(key.isPressed){
-                            this.setState({
-                                left: this.state.left-2
-                            })
-                        }
+                        newPos.topLeft.x-=2;
                         break;
                     case 's':
-                        this.setState({
-                            top: this.state.top+2
-                        })
+                        newPos.topLeft.y+=2;
                         break;
                     case 'd':
-                        this.setState({
-                            left: this.state.left+2
-                        })
+                        newPos.topLeft.x+=2;
                         break;
                     case 'w':
-                        this.setState({
-                            top: this.state.top-2
-                        })
+                        newPos.topLeft.y-=2;
                         break;
                 }
             }
-        })
+        });
+
+        return newPos;
+    }
+
+    updateMovement = (nextPos: IBoundaries): void => {
+        if(nextPos !== undefined){
+            this.setState({
+                position: nextPos
+            });
+        }
     }
 
     render(){
         const { size } = this.props;
-        const { left, top } = this.state;
+        const top = this.state.position.topLeft.y;
+        const left = this.state.position.topLeft.x;
         const styles: React.CSSProperties = {
             position: 'relative',
             backgroundColor:'lightgreen',
@@ -95,10 +90,11 @@ class Square extends React.Component<ISquareProps, ISquareState>{
 
 const mapStateToProps = (store: IAppState) => {
     return {
-        loop: {
-            subscriptions: store.loopState.subscriptions
+        player: {
+          updateMovement: store.player.updateMovement,
+          nextPos: store.player.nextPos
         }
     };
-};
+  };
 
-export default connect(mapStateToProps,{ subscribeToLoop })(Square);
+export default connect(mapStateToProps,{ setPlayer })(Square);

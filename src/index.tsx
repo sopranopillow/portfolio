@@ -4,7 +4,7 @@ import './index.css';
 import App from './Components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import configureStore from './Engine/store/store';
+import configureStore from './GameLogic/store/store';
 
 const store = configureStore();
 

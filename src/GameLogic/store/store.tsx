@@ -1,13 +1,13 @@
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
 import thunk from 'redux-thunk';
-import { ILoopState, loopReducer } from '../reducers';
+import { IPlayer, playerReducer } from '../reducers';
 
 export interface IAppState {
-    loopState: ILoopState;
+    player: IPlayer;
 }
 
 const rootReducer = combineReducers<IAppState>({
-    loopState: loopReducer
+    player: playerReducer
 });
 
 const configureStore = (): Store<IAppState, any> => {
