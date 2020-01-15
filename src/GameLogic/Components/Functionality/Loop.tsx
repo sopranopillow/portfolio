@@ -2,8 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { IAppState } from '../../store/store';
 import { IPlayer } from '../../reducers';
-import './Loop.styles.css';
+import { setPlayer } from '../../actions';
 import { IBoundaries } from '../GeneralUtils/Collisions';
+import './Loop.styles.css';
 
 interface ILoopProps {
     player: IPlayer;
@@ -45,7 +46,6 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
 
     componentWillUnmount() {
         const { requestID } = this.state;
-
         if(requestID){
             window.cancelAnimationFrame(requestID);
         }
@@ -79,9 +79,7 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
 
     loop = () => {
         this.timeMeasurements.push(performance.now());
-
         const msPassed = this.timeMeasurements[this.timeMeasurements.length-1] - this.timeMeasurements[0];
-
         if (msPassed >= 0.5 * 1000) {
             this.setState({
                 fps: Math.round(this.timeMeasurements.length / msPassed * 1000 * 2) / 2
@@ -118,4 +116,4 @@ const mapStateToProps = (store: IAppState) => {
     };
   };
 
-export default connect(mapStateToProps)(Loop);
+export default connect(mapStateToProps, { setPlayer })(Loop);

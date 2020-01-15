@@ -2,11 +2,11 @@ export enum PlayerActionTypes {
     SET = 'SET'
 }
 
-export interface IPlayerAdd {
+export interface ISetPlayer {
     type: PlayerActionTypes;
     updateMovement: Function;
     nextPos: Function;
 }
 
 // ILoopSubscribe | ILoopX
-export type PlayerActions = IPlayerAdd;
+export type PlayerActions = ISetPlayer;

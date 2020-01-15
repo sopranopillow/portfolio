@@ -1,2 +1,2 @@
-export * from './loopReducers/LoopReducer';
-export * from './loopReducers/Types';
+export * from './PlayerReducers/PlayerReducer';
+export * from './PlayerReducers/Types';
