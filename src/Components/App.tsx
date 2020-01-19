@@ -1,19 +1,17 @@
 import React from 'react';
-import Loop from '../GameLogic/Components/Functionality/Loop';
-import Square from '../Components/Square';
-import { setPlayer } from '../GameLogic/actions';
+import Loop from '../GameLogic/Components/Loop';
+import Player from '../Components/Player';
+import Chest from './Chest';
+import { setPlayer, addChest, addWall } from '../GameLogic/store/actions';
 import { IAppState } from '../GameLogic/store/store';
 import { connect } from 'react-redux';
 
-interface IAppProps{
-  setPlayer: typeof setPlayer;
-}
-
-class App extends React.Component<IAppProps>{
+class App extends React.Component<{}>{
   render(){
     return (
       <>
-        <Square left={10} top={10} size={40}/>
+        <Player left={150} top={150} proximityRange={10} size={32}/>
+        <Chest content={<div>hello</div>} left={100} top={100} size={32}/>
         <Loop/>
       </>
     );
@@ -22,11 +20,10 @@ class App extends React.Component<IAppProps>{
 
 const mapStateToProps = (store: IAppState) => {
   return {
-      player: {
-        updateMovement: store.player.updateMovement,
-        nextPos: store.player.nextPos
-      }
+      player: store.player,
+      chests: store.chests,
+      walls: store.walls
   };
 };
 
-export default connect(mapStateToProps,{ setPlayer })(App);
+export default connect(mapStateToProps,{ setPlayer, addChest, addWall })(App);

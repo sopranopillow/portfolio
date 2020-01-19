@@ -1,6 +1,6 @@
 export interface IBoundaries {
-    leftTop: Point;
-    rightBottom: Point;
+    topLeft: Point;
+    bottomRight: Point;
 }
 
 export interface Point {
@@ -9,14 +9,26 @@ export interface Point {
 }
 
 export const checkCollision = (firstObject: IBoundaries, secondObject: IBoundaries): boolean => {
-    if((firstObject.leftTop.x < secondObject.rightBottom.x) && (firstObject.rightBottom.x > secondObject.leftTop.x) &&
-        (firstObject.leftTop.y < secondObject.rightBottom.y) && (firstObject.rightBottom.y > secondObject.leftTop.y)){
-        return true;
+    if(firstObject.topLeft.x > secondObject.bottomRight.x ||
+        firstObject.bottomRight.x < secondObject.topLeft.x) {
+        return false;
     }
-    return false;
+    if(firstObject.topLeft.y > secondObject.bottomRight.y ||
+        firstObject.bottomRight.y < secondObject.topLeft.y) {
+        return false;
+    }
+    return true;
 }
 
-export const replaceBoundariesValues = (original: IBoundaries, newValues: IBoundaries): void => {
-    original.leftTop = newValues.leftTop;
-    original.rightBottom = newValues.rightBottom;
+
+export const checkProximity = (firstObject: IBoundaries, secondObject: IBoundaries, proximity: number): boolean => {
+    if(firstObject.topLeft.x > (secondObject.bottomRight.x + proximity) ||
+        firstObject.bottomRight.x < (secondObject.topLeft.x - proximity)) {
+        return false;
+    }
+    if(firstObject.topLeft.y > (secondObject.bottomRight.y + proximity) ||
+        firstObject.bottomRight.y < (secondObject.topLeft.y - proximity)) {
+        return false;
+    }
+    return true;
 }

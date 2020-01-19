@@ -4,8 +4,7 @@ export enum PlayerActionTypes {
 
 export interface ISetPlayer {
     type: PlayerActionTypes;
-    updateMovement: Function;
-    nextPos: Function;
+    update: Function;
 }
 
 // ILoopSubscribe | ILoopX

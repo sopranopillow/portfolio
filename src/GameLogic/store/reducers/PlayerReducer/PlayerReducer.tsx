@@ -2,8 +2,7 @@ import { PlayerActionTypes, PlayerActions } from '../../actions';
 import { IPlayer } from './Types';
 
 const initialPlayerState: IPlayer = {
-    nextPos: ()=>{},
-    updateMovement: ()=>{}
+    update: ()=>{},
 }
 
 export const playerReducer = (
@@ -13,8 +12,7 @@ export const playerReducer = (
     switch(action.type) {
         case PlayerActionTypes.SET:
             return {
-                nextPos: action.nextPos,
-                updateMovement: action.updateMovement
+                update: action.update
             };
         default:
             return state;

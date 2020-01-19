@@ -1,12 +1,10 @@
 import { PlayerActions, PlayerActionTypes } from './Types';
 
 export const setPlayer = (
-    updateMovement: Function,
-    nextPos: Function,
+    update: Function
 ): PlayerActions => {
     return {
         type: PlayerActionTypes.SET,
-        updateMovement: updateMovement,
-        nextPos: nextPos,
+        update: update
     };
 };

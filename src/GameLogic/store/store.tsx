@@ -1,13 +1,17 @@
 import { applyMiddleware, combineReducers, createStore, Store, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { IPlayer, playerReducer } from '../reducers';
+import { IPlayer, playerReducer, chestReducer, IChest, IWall, wallReducer } from './reducers';
 
 export interface IAppState {
     player: IPlayer;
+    chests: IChest[];
+    walls: IWall[];
 }
 
 const rootReducer = combineReducers<IAppState>({
-    player: playerReducer
+    player: playerReducer,
+    chests: chestReducer,
+    walls: wallReducer
 });
 
 const configureStore = (): Store<IAppState, any> => {

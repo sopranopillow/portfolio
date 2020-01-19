@@ -1,31 +1,35 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IAppState } from '../../store/store';
-import { IPlayer } from '../../reducers';
-import { setPlayer } from '../../actions';
-import { IBoundaries } from '../GeneralUtils/Collisions';
+import { IAppState } from '../store/store';
+import { IPlayer, IChest, IWall } from '../store/reducers';
+import { setPlayer, addChest, addWall } from '../store/actions';
 import './Loop.styles.css';
 
 interface ILoopProps {
     player: IPlayer;
+    chests: IChest[];
+    walls: IWall[];
 }
 
 interface ILoopState {
     requestID: number;
     fps: number;
     keys: IKey[];
+    log: String;
 }
 
 export interface IKey {
     key: string;
     isPressed: boolean;
+    isToggle: boolean;
 }
 
 class Loop extends React.Component<ILoopProps, ILoopState> {
     public readonly state: Readonly<ILoopState> = {
         requestID: 0,
         fps: 0,
-        keys: []
+        keys: [],
+        log: 'empty'
     }
 
     private timeMeasurements: number[] = [];
@@ -34,10 +38,11 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
         this.setState({
             requestID: window.requestAnimationFrame(this.loop),
             keys: [
-                {key: 'w', isPressed: false},
-                {key: 'a', isPressed: false},
-                {key: 's', isPressed: false},
-                {key: 'd', isPressed: false}
+                {key: 'w', isPressed: false, isToggle: false},
+                {key: 'a', isPressed: false, isToggle: false},
+                {key: 's', isPressed: false, isToggle: false},
+                {key: 'd', isPressed: false, isToggle: false},
+                {key: 'e', isPressed: false, isToggle: true}
             ]
         });
         document.onkeydown = this.keyChange;
@@ -57,9 +62,12 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
         if(ev.type === 'keyup'){
             this.setState({
                 keys: keys.map((key: IKey) => {
-                    if(ev.key === key.key){
-                        return {key: key.key, isPressed: false};
-                    }else{
+                    if(ev.key === key.key && !key.isToggle){
+                        return {key: key.key, isPressed: false, isToggle: false};
+                    }else if(ev.key === key.key && key.isToggle){
+                        return {key: key.key, isPressed: !key.isPressed, isToggle: true};
+                    }
+                    else {
                         return key;
                     }
                 })
@@ -67,8 +75,8 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
         }else if(ev.type === 'keydown'){
             this.setState({
                 keys: keys.map((key: IKey) => {
-                    if(ev.key === key.key){
-                        return {key: key.key, isPressed: true};
+                    if(ev.key === key.key && !key.isToggle){
+                        return {key: key.key, isPressed: true, isToggle: false};
                     }else{
                         return key;
                     }
@@ -86,11 +94,8 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
             });
             this.timeMeasurements = [];
         }
-        const nextPos: IBoundaries = this.props.player.nextPos(this.state.keys);
 
-        if(nextPos !== undefined){
-            this.props.player.updateMovement(nextPos);
-        }
+        this.props.player.update(this.state.keys, this.props.chests);
 
         this.setState({
             requestID: window.requestAnimationFrame(this.loop)
@@ -98,10 +103,10 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
     }
 
     public render() {
-        const { fps } = this.state;
+        const { fps, log } = this.state;
         return (
             <div className="loopStats">
-                <div>{`fps: ${fps}`}</div>
+                <div>{`fps: ${fps} log: ${log}`}</div>
             </div>
         );
     }
@@ -109,11 +114,10 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
 
 const mapStateToProps = (store: IAppState) => {
     return {
-        player: {
-          updateMovement: store.player.updateMovement,
-          nextPos: store.player.nextPos
-        }
+        player: store.player,
+        chests: store.chests,
+        walls: store.walls
     };
   };
 
-export default connect(mapStateToProps, { setPlayer })(Loop);
+export default connect(mapStateToProps, { setPlayer, addChest, addWall })(Loop);
