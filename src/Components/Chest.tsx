@@ -16,7 +16,7 @@ interface IChestProps {
     size: number;
     top: number;
     left: number;
-    content: JSX.Element;
+    children: React.ReactNode | JSX.Element;
 }
 
 class Chest extends React.Component<IChestProps, IChestState> {
@@ -60,8 +60,8 @@ class Chest extends React.Component<IChestProps, IChestState> {
         }
         return(
             <>
-                <img src={chest} style={styles}></img>
-                {this.state.showContent && <div className="content">{this.props.content}</div>}
+                <img alt="Chest" src={chest} style={styles}></img>
+                {this.state.showContent && <div className="content">{this.props.children}</div>}
             </>
         );
     }

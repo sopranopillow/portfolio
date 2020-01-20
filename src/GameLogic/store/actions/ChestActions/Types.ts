@@ -1,13 +1,13 @@
 import { IBoundaries } from "../../../GeneralUtils";
 
 export enum ChestActionTypes {
-    ADD = 'ADD'
+    ADDCHEST = 'ADDCHEST'
 }
 
 export interface IAddChest {
-    type: ChestActionTypes.ADD;
+    type: ChestActionTypes.ADDCHEST;
     boundaries: IBoundaries;
-    toggle: Function;
+    toggle: () => void;
 }
 
 export type ChestActions = IAddChest;

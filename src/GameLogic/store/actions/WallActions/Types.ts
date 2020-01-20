@@ -1,11 +1,11 @@
 import { IBoundaries } from "../../../GeneralUtils";
 
 export enum WallActionTypes {
-    ADD = 'ADD'
+    ADDWALL = 'ADDWALL'
 }
 
 export interface IAddWall{
-    type: WallActionTypes.ADD;
+    type: WallActionTypes.ADDWALL;
     boundaries: IBoundaries;
 }
 

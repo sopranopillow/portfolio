@@ -8,7 +8,7 @@ export const wallReducer = (
     action: WallActions
 ): IWall[] =>{
     switch(action.type){
-        case WallActionTypes.ADD:
+        case WallActionTypes.ADDWALL:
             return [
                 ...state,
                 {

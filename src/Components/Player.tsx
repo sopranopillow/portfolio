@@ -4,7 +4,7 @@ import { setPlayer } from '../GameLogic/store/actions';
 import { IAppState } from '../GameLogic/store/store';
 import { IKey } from '../GameLogic/Components/Loop';
 import { IBoundaries, checkCollision, checkProximity } from '../GameLogic/GeneralUtils';
-import { IChest } from '../GameLogic/store/reducers';
+import { IChest, IWall } from '../GameLogic/store/reducers';
 
 interface IPlayerState {
     position: IBoundaries;
@@ -80,19 +80,20 @@ class Player extends React.Component<IPlayerProps, IPlayerState>{
         return newPos;
     }
 
-    checkChestsCollisions = (nextPos: IBoundaries, chests: IChest[]): boolean => {
-        for(let i = 0; i < chests.length; i++) {
-            if(checkCollision(nextPos, chests[i].boundaries)) {
+    checkCollisions = (nextPos: IBoundaries, objs: IBoundaries[]): boolean => {
+        for(let i = 0; i < objs.length; i++) {
+            if(checkCollision(nextPos, objs[i])) {
                 return true;
             }
         }
         return false;
     }
 
-    update = (keys: IKey[], chests: IChest[]) => {
+    update = (keys: IKey[], chests: IChest[], walls: IWall[]): void => {
         const nextPos = this.nextPos(keys); // getting next position
         // checking if the square collides with the chests
-        if(!this.checkChestsCollisions(nextPos, chests)){
+        if(!this.checkCollisions(nextPos, chests.map((chest: IChest) => chest.boundaries)) &&
+            !this.checkCollisions(nextPos, walls.map((wall: IWall) => wall.boundaries))){
             this.setState({
                 position: nextPos
             });
@@ -106,9 +107,9 @@ class Player extends React.Component<IPlayerProps, IPlayerState>{
             chests.forEach((chest: IChest)=>{
                 if(checkProximity(this.state.position, chest.boundaries, this.props.proximityRange)) {
                     chest.toggle();
-                    key!.isPressed = false;
                 }
             })
+            key!.isPressed = false;
         }
     }
 
@@ -117,7 +118,7 @@ class Player extends React.Component<IPlayerProps, IPlayerState>{
         const { topLeft } = this.state.position;
         const styles: React.CSSProperties = {
             position: 'absolute',
-            backgroundColor: 'red',
+            backgroundColor: 'blue',
             left: topLeft.x + 'px',
             top: topLeft.y + 'px',
             width: size + 'px',

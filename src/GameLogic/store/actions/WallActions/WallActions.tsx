@@ -6,7 +6,7 @@ export const addWall = (
     boundaries: IBoundaries
 ): WallActions => {
     return {
-        type: WallActionTypes.ADD,
+        type: WallActionTypes.ADDWALL,
         boundaries: boundaries
     }
 }

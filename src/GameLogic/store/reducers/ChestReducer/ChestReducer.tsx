@@ -8,7 +8,7 @@ export const chestReducer = (
     action: ChestActions
 ): IChest[] => {
     switch(action.type){
-        case ChestActionTypes.ADD:
+        case ChestActionTypes.ADDCHEST:
             return [
                 ...state,
                 {

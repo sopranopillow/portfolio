@@ -95,7 +95,7 @@ class Loop extends React.Component<ILoopProps, ILoopState> {
             this.timeMeasurements = [];
         }
 
-        this.props.player.update(this.state.keys, this.props.chests);
+        this.props.player.update(this.state.keys, this.props.chests, this.props.walls);
 
         this.setState({
             requestID: window.requestAnimationFrame(this.loop)
