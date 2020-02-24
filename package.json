@@ -20,7 +20,7 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "typescript": "~3.7.2",
-    "yarn": "^1.21.1"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "d": "yarn install && yarn build && yarn start",
