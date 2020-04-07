@@ -3,28 +3,29 @@ import React from 'react';
 class App extends React.Component<{}>{
   requestID: number = 0;
 
-  constructor(props: any){
-    super(props);
-  }
+  // constructor(props: any){
+  //   super(props);
+  // }
 
-  componentDidMount(){
-  }
+  // componentDidMount(){
+  // }
 
-  componentWillUnmount(){
-    cancelAnimationFrame(this.requestID);
-  }
+  // componentWillUnmount(){
+  //   cancelAnimationFrame(this.requestID);
+  // }
 
-  drawCircle = (x: number, y: number, delta_x: number, delta_y: number, size: number) => {
+  // drawCircle = (x: number, y: number, delta_x: number, delta_y: number, size: number) => {
 
-  }
+  // }
 
-  anim = () => {
+  // anim = () => {
 
-  }
+  // }
 
   render(){
     return (
       <>
+      <h1>hello</h1>
       </>
     );
   }
