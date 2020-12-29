@@ -9,7 +9,7 @@ import { Home } from './pages';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/portfolio/" component={Home} />
         </Switch>
     </BrowserRouter>,
     document.getElementById('root')
