@@ -1,26 +1,26 @@
 import * as React from 'react';
 
-// flexFlow removed due to being a combination of already set values
-interface FlexProps {
+export interface FlexProps {
     inline?: boolean; // Default is flex(block) inline is inline-flex
     flexDirection?: 'row-reverse' | 'column' | 'column-reverse'; // Default: row
     flexWrap?: 'wrap' | 'wrap-reverse'; // Default: nowrap
     justifyContent?: 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly'; // Default: flex-start
     alignItems?: 'flex-start' | 'flex-end' | 'center' | 'baseline'; // Default: stretch
     alignContent?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around'; // Default: normal
+    style?: React.CSSProperties;
 }
 
 export const Flex: React.FunctionComponent<FlexProps> = (props) => {
-    const FlexChildren = props.children;
+    const {inline, flexDirection, flexWrap, justifyContent, alignItems, alignContent, style} = props;
+    const newStyles: React.CSSProperties = {
+        display: inline ? 'inline-flex' : 'flex',
+        flexDirection: flexDirection ? flexDirection : 'row',
+        flexWrap: flexWrap ? flexWrap : 'nowrap',
+        justifyContent: justifyContent ? justifyContent : 'flex-start',
+        alignItems: alignItems ? alignItems : 'stretch',
+        alignContent: alignContent ? alignContent : 'normal',
+        ...style
+    };
 
-    const style: React.CSSProperties = {
-        display: props.inline ? 'inline-flex' : 'flex',
-        flexDirection: props.flexDirection && 'row',
-        flexWrap: props.flexWrap && 'nowrap',
-        justifyContent: props.justifyContent && 'flex-start',
-        alignItems: props.alignItems && 'stretch',
-        alignContent: props.alignContent && 'normal',
-    }
-
-    return <div style={style}>{FlexChildren}</div>
+    return <div style={newStyles}>{props.children}</div>
 }

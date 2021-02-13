@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { Nav, NavItem } from '../components';
+import { Icon, Screen, InnerScreen, TaskBar } from '../components';
 
-export const Home = () => {
+export const Home: React.FunctionComponent<{}> = () => {
     return (
-        <div>
-            <Nav>
-                <NavItem>Home</NavItem>
-                <NavItem>About Me</NavItem>
-                <NavItem>School</NavItem>
-                <NavItem>Personal Projects</NavItem>
-                <NavItem>Resume</NavItem>
-            </Nav>
-        </div>
-    )
+        <Screen>
+            <InnerScreen>
+                <Icon>about me</Icon>
+                <Icon>school</Icon>
+                <Icon>personal projects</Icon>
+                <Icon>school projects</Icon>
+                <Icon>resume</Icon>
+            </InnerScreen>
+            <TaskBar/>
+        </Screen>
+    );
 };

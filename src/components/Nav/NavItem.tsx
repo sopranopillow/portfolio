@@ -1,7 +1,12 @@
 import * as React from 'react';
+import { FlexItem } from '../Flex';
 
-export const NavItem: React.FunctionComponent<{}> = (props) => {
+interface NavItemProps {
+    style?: React.CSSProperties;
+}
+
+export const NavItem: React.FunctionComponent<NavItemProps> = (props) => {
     return (
-        <div>{props.children}</div>
-    )
+        <FlexItem style={props.style}>{props.children}</FlexItem>
+    );
 }
