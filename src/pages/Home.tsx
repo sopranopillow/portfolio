@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { Icon, Screen, InnerScreen, TaskBar } from '../components';
+import { Icon, Screen, InnerScreen, TaskBar, TaskBarIcon } from '../components';
 
 export const Home: React.FunctionComponent<{}> = () => {
     return (
         <Screen>
             <InnerScreen>
-                <Icon>about me</Icon>
-                <Icon>school</Icon>
-                <Icon>personal projects</Icon>
-                <Icon>school projects</Icon>
-                <Icon>resume</Icon>
+                {icons.map(icon => <Icon>{icon}</Icon>)}
             </InnerScreen>
-            <TaskBar/>
+            <TaskBar>
+                {icons.map(icon => <TaskBarIcon>{icon}</TaskBarIcon>)}
+            </TaskBar>
         </Screen>
     );
 };
+
+const icons = ['about me','school','personal projects','school projects', 'resume'];

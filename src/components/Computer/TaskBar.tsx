@@ -4,7 +4,7 @@ import { FlexItem, Flex } from "../Flex"
 export const TaskBar: React.FunctionComponent = (props) => {
     return(
         <FlexItem style={{backgroundColor: 'red', width: '100%'}} alignSelf="flex-end">
-            <Flex>Hello</Flex>
+            <Flex>{props.children}</Flex>
         </FlexItem>
     )
 }
