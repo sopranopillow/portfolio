@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { Flex } from '../Flex';
 
-export const Screen: React.FunctionComponent<{}> = (props) => {
+export interface ScreenProps {
+    style?: React.CSSProperties;
+}
+
+export const Screen: React.FunctionComponent<ScreenProps> = (props) => {
     const styles: React.CSSProperties = {
-        backgroundColor: 'lightblue',
         width: '100%',
         height: '100%',
-        position: 'absolute'
+        position: 'absolute',
+        ...props.style
     }
     return (
         <Flex style={styles}>
