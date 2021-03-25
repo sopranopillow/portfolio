@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FlexItem } from '../Flex';
 
 export const Icon: React.FunctionComponent = (props) => {
-    const styles = {
+    const styles: React.CSSProperties = {
         backgroundColor: '#efb0ff',
         width: '80px',
         height: '80px',

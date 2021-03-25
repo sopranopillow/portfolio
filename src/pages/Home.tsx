@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Icon, Screen, InnerScreen, TaskBar, TaskBarIcon } from '../components';
+import { Icon, Screen, InnerScreen, TaskBar, TaskBarIcon, Window } from '../components';
 
 export interface HomeState {
     gl: WebGLRenderingContext;
@@ -25,6 +25,7 @@ export class Home extends React.Component<{}, HomeState>{
             <>
                 <canvas id="background" style={{position:'absolute', width: '100%', height: '100%'}}></canvas>
                 <Screen>
+                    <Window/>
                     <InnerScreen>
                         {icons.map(icon => <Icon>{icon}</Icon>)}
                     </InnerScreen>
