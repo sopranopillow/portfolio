@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { Flex, FlexItem } from '../Flex';
 
-interface WindowProps {
+interface WindowProps extends React.PropsWithChildren<any> {
     title?: string;
+    topPadding?: number;
+    restPadding?: number;
 }
 
-export const Window: React.FC<WindowProps> = props => {
+export const Window: React.FC<WindowProps> = ({topPadding = 32, restPadding = 8, children, ...props}: WindowProps) => {
     const [pressed, setPressed] = React.useState(false);
-    const [position, setPosition] = React.useState({x:0, y:0});
-    const [windowSize, setWindowSize] = React.useState({width: 400, height: 400});
+    const [resizePressed, setResizePressed] = React.useState(false);
+    const [position, setPosition] = React.useState({x:100, y:100});
+    const [windowSize, setWindowSize] = React.useState({width: 800, height: 800});
     const ref = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
@@ -17,24 +19,30 @@ export const Window: React.FC<WindowProps> = props => {
         }
     }, [position]);
 
+    React.useEffect(() => {
+        if (ref.current) {
+            ref.current.style.transform = `scale(${windowSize.width}px, ${windowSize.width}px)`
+        }
+    }, [windowSize]);
+
     const outerStyles: React.CSSProperties = {
         position:'fixed',
         display: 'block',
-        width: '400px',
-        height: '400px',
+        width: windowSize.width + 'px',
+        height: windowSize.height + 'px',
         zIndex: 2,
         backgroundColor: 'whitesmoke',
     }
 
     const innerStyles: React.CSSProperties = {
         backgroundColor:'gray',
-        margin: '32px 4px 4px 4px',
-        width: (windowSize.width - 8) + 'px',
-        height: (windowSize.height - 36) + 'px'
+        margin: `${topPadding}px ${restPadding}px ${restPadding}px ${restPadding}px`,
+        width: (windowSize.width - (restPadding * 2)) + 'px',
+        height: (windowSize.height - (topPadding + restPadding)) + 'px'
     }
 
     const titleProps: React.CSSProperties = {
-        margin: 5,
+        margin: restPadding,
         padding: 0,
         position: 'fixed'
     }
@@ -46,17 +54,43 @@ export const Window: React.FC<WindowProps> = props => {
                 y: position.y + event.movementY
             })
         }
+
+        if (resizePressed) {
+            setWindowSize({
+                width: windowSize.width + event.movementX,
+                height: windowSize.height + event.movementY
+            })
+        }
+    }
+
+    const onMouseDown = (event: React.MouseEvent) => {
+        const [x, y] = [event.clientX, event.clientY];
+
+        if (x >= position.x && x <= position.x + windowSize.width &&
+            y >= position.y && y <= position.y + (restPadding + topPadding)){
+                setPressed(true);
+        }
+
+        if (x >= (position.x + windowSize.width - restPadding) && x <= (position.x + windowSize.width) &&
+            y >= (position.y + windowSize.height - restPadding) && y <= (position.y + windowSize.height)){
+                setResizePressed(true);
+        }
+    }
+
+    const onMouseUp = (event: React.MouseEvent) => {
+        setPressed(false);
+        setResizePressed(false);
     }
 
     return (
         <div ref={ref}
             style={outerStyles}
-            onMouseDown={ () => setPressed(true) }
+            onMouseDown={ onMouseDown }
             onMouseMove={ onMouseMove }
-            onMouseUp={ () => setPressed(false) }
+            onMouseUp={ onMouseUp }
         >
             <p style={titleProps}>{props.title}</p>
-            <div style={innerStyles}></div>
+            <div style={innerStyles}>{children}</div>
         </div>
     )
 }

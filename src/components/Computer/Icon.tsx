@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { FlexItem } from '../Flex';
 
-export const Icon: React.FunctionComponent = (props) => {
+export interface IconProps{
+    text: string;
+    toggle: (window: string, val: boolean) => void;
+}
+
+export const Icon: React.FunctionComponent<IconProps> = props => {
     const styles: React.CSSProperties = {
         backgroundColor: '#efb0ff',
         width: '80px',
@@ -13,8 +18,8 @@ export const Icon: React.FunctionComponent = (props) => {
     }
 
     return (
-        <FlexItem style={styles}>
-            {props.children}
-        </FlexItem>
+        <button onClick={() => props.toggle(props.text, true)} style={styles}>
+            {props.text}
+        </button>
     )
 }
