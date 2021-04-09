@@ -25,7 +25,7 @@ export class Home extends React.Component<{}, HomeState>{
             <>
                 <canvas id="background" style={{position:'absolute', width: '100%', height: '100%'}}></canvas>
                 <Screen>
-                    <Window/>
+                    <Window title="Personal Projects"/>
                     <InnerScreen>
                         {icons.map(icon => <Icon>{icon}</Icon>)}
                     </InnerScreen>
