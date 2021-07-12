@@ -99,7 +99,9 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1"
+    "eslint-config-prettier": "^8.3.0",
+    "gh-pages": "^2.1.1",
+    "prettier": "2.3.2"
   },
   "jest": {
     "roots": [

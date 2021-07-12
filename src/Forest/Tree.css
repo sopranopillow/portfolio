@@ -1,0 +1,103 @@
+:root {
+  --background-color: lightblue;
+  --tree-size: 600px;
+  --low-color: #3a4f3f;
+  --medium-color: #587e60;
+  --top-color: #77a37a;
+  --trunk-color: #7e6552;
+}
+
+.tree {
+  position: absolute;
+  width: calc(var(--tree-size) / 2);
+  height: var(--tree-size);
+  /* background-color: var(--background-color); */
+}
+
+.leaves {
+  /*   background-color: var(--low-color); */
+  position: absolute;
+  width: 100%;
+  height: 70%;
+}
+
+.low {
+  background-color: var(--low-color);
+  position: absolute;
+  width: 50%;
+  height: 40%;
+  top: 60%;
+  border-radius: 50% 50% 20% 20%;
+  transform: perspective(2em) rotateX(10deg);
+  left: 25%;
+  border-radius: 50% 50% 20% 20%;
+}
+
+.medium {
+  background-color: var(--medium-color);
+  position: absolute;
+  width: 120%;
+  height: 100%;
+  top: -10%;
+  border-radius: 50% 50% 20% 20%;
+  left: -10%;
+  border-radius: 50% 50% 20% 20%;
+  animation-name: foliage-move;
+  animation-duration: 10s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-delay: 2s;
+}
+
+.top {
+  background-color: var(--top-color);
+  position: absolute;
+  width: 120%;
+  height: 180%;
+  top: -100%;
+  left: -10%;
+  border-radius: 50% 50% 20% 20%;
+  animation-name: foliage-move;
+  animation-duration: 10s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-delay: 4s;
+}
+
+@keyframes foliage-move {
+  from {
+  }
+  20% {
+    transform: translateY(2px);
+  }
+  40% {
+    transform: translateY(-2px);
+  }
+  to {
+  }
+}
+
+.trunk {
+  /*   background-color: var(--trunk-color); */
+  position: absolute;
+  top: 68%;
+  width: 100%;
+  height: 25%;
+}
+
+.wood {
+  position: absolute;
+  height: 100%;
+  width: 20%;
+  left: 40%;
+  background-color: var(--trunk-color);
+}
+
+.inner-wood {
+  position: absolute;
+  background-color: var(--trunk-color);
+  width: 100%;
+  height: 10%;
+  top: 95%;
+  border-radius: 50%;
+}
