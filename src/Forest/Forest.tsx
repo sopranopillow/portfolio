@@ -1,9 +1,13 @@
 import * as React from "react";
 import { Campfire } from "./Campfire";
+import { Pinetree } from "./Pinetree";
 import { Tree } from "./Tree";
+import "./Forest.css";
 
 export const Forest: React.FC = () => {
-  const treeNum = 8;
+  const treeNum = 10;
+  const randRange = { y: 50, x: 200 };
+  const treeSize = window.innerWidth / 3;
   const leftForestPos = {
     x: -150,
     y: -200,
@@ -18,7 +22,6 @@ export const Forest: React.FC = () => {
   };
   const leftForest = [];
   const rightForest = [];
-  const randRange = { y: 50, x: 200 };
 
   for (let r = 0; r < Math.floor(treeNum / 2); r++) {
     for (let c = 0; c < r + 1; c++) {
@@ -32,7 +35,19 @@ export const Forest: React.FC = () => {
         leftForestPos.y +
         randY +
         r * (leftForestPos.rangeY / Math.floor(treeNum / 2));
-      leftForest.push(<Tree style={{ left: `${x}px`, top: `${y}px` }} />);
+      const styles = {
+        left: `${x}px`,
+        top: `${y}px`,
+        width: `${treeSize / 2}px`,
+        height: `${treeSize}px`,
+      };
+      leftForest.push(
+        Math.random() * 100 < 50 ? (
+          <Tree style={styles} />
+        ) : (
+          <Pinetree style={styles} />
+        )
+      );
     }
   }
 
@@ -48,15 +63,30 @@ export const Forest: React.FC = () => {
         rightForestPos.y +
         randY +
         r * (rightForestPos.rangeY / Math.floor(treeNum / 2));
-      rightForest.push(<Tree style={{ left: `${x}px`, top: `${y}px` }} />);
+      const styles = {
+        left: `${x}px`,
+        top: `${y}px`,
+        width: `${treeSize / 2}px`,
+        height: `${treeSize}px`,
+      };
+
+      rightForest.push(
+        Math.random() * 100 < 50 ? (
+          <Tree style={styles} />
+        ) : (
+          <Pinetree style={styles} />
+        )
+      );
     }
   }
 
   return (
     <div className="background">
-      {leftForest}
-      <Campfire />
-      {rightForest}
+      <div className="forest">
+        {leftForest}
+        <Campfire />
+        {rightForest}
+      </div>
     </div>
   );
 };

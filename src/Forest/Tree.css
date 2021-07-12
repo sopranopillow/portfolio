@@ -1,6 +1,4 @@
 :root {
-  --background-color: lightblue;
-  --tree-size: 600px;
   --low-color: #3a4f3f;
   --medium-color: #587e60;
   --top-color: #77a37a;
@@ -9,13 +7,9 @@
 
 .tree {
   position: absolute;
-  width: calc(var(--tree-size) / 2);
-  height: var(--tree-size);
-  /* background-color: var(--background-color); */
 }
 
 .leaves {
-  /*   background-color: var(--low-color); */
   position: absolute;
   width: 100%;
   height: 70%;
@@ -30,7 +24,6 @@
   border-radius: 50% 50% 20% 20%;
   transform: perspective(2em) rotateX(10deg);
   left: 25%;
-  border-radius: 50% 50% 20% 20%;
 }
 
 .medium {
@@ -41,7 +34,6 @@
   top: -10%;
   border-radius: 50% 50% 20% 20%;
   left: -10%;
-  border-radius: 50% 50% 20% 20%;
   animation-name: foliage-move;
   animation-duration: 10s;
   animation-direction: alternate;
@@ -78,7 +70,6 @@
 }
 
 .trunk {
-  /*   background-color: var(--trunk-color); */
   position: absolute;
   top: 68%;
   width: 100%;

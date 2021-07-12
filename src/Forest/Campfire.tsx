@@ -20,7 +20,7 @@ export const Campfire: React.FC = () => {
     <div
       style={{
         width: `${campfireSize}px`,
-                    height: `${campfireSize}px`,
+        height: `${campfireSize}px`,
         left: `${campfireLeft}px`,
         top: `${campfireTop}px`,
       }}
