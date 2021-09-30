@@ -1,5 +1,5 @@
+import { Grid } from "../Components";
 import * as React from "react";
-import { Forest } from "../Forest";
 
 export class Home extends React.Component {
   render() {
@@ -10,10 +10,10 @@ export class Home extends React.Component {
           width: "100%",
           height: "100%",
           overflow: "hidden",
-          backgroundColor: "#06083",
+          backgroundColor: "#000000",
         }}
       >
-        <Forest />
+        <Grid squareSize={10} width={100} height={16} />
       </div>
     );
   }
