@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './index.css';
 import { Home } from './portfolio';
 import './fonts/PressStart2P-Regular.ttf';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/portfolio/" component={Home} />
-    </Switch>
-  </BrowserRouter>,
+  // <BrowserRouter>
+  //   <Switch>
+  //     <Route exact path="/portfolio/" component={Home} />
+  //   </Switch>
+  // </BrowserRouter>,
+  <>
+    <Home />
+  </>,
   document.getElementById('root'),
 );
 

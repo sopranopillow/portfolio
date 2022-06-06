@@ -3,13 +3,17 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  background-color: #8795e2;
+  background-image: linear-gradient(45deg, #02cf9a 25%, transparent 25%), linear-gradient(-45deg, #02cf9a 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #02cf9a 75%), linear-gradient(-45deg, transparent 75%, #02cf9a 75%);
+  background-size: 50px 50px;
+  background-position: 0 0, 0 50px, 50px -50px, -50px 0px;
 }
 .header {
   display: inline-flex;
   position: relative;
   width: 100%;
   height: 120px;
-  background-color: red;
+  background-color: transparent;
   justify-content: center;
 }
 .content {
@@ -18,20 +22,31 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: blue;
   align-items: flex-end;
   padding: 64px;
   gap: 64px;
 }
 .iconButton {
   all: unset;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  align-items: center;
+  flex-direction: column;
+  position:relative;
+  gap: 10px;
   width: 128px;
   height: 128px;
-  background-color: lightblue;
+  /* background-color: lightblue; */
+}
+.iconImage {
+  position:relative;
+  width: 80px;
+  height: 80px;
 }
 .taskbar {
   display: inline-flex;
-  background-color: cyan;
+  background-color: #b7c4af;
   position: fixed;
   box-sizing: border-box;
   font-size: large;
@@ -40,8 +55,9 @@
   box-sizing: border-box;
   /* border-left-color: lightblue; */
   /* border-bottom-color: cyan; */
-  border-color: cyan;
-  border-top-color: lightblue;
+  border-color: #b7c4af;
+  border-top-color: #f8f9f7;
+  border-bottom-color: #87919c;
   border-width: 6px;
   border-style: solid;
 }
@@ -53,9 +69,10 @@
   /* border-width: 0 6px 0 6px; */
   border-width: 6px;
   /* border-top-color: lightblue; */
-  border-color: cyan;
+  border-color: #b7c4af;
   /* border-right-color: cyan; */
-  border-left-color: lightblue;
+  border-left-color: #f8f9f7;
+  border-right-color: #87919c;
   /* top: 6px; */
   left: -12px;
   width: calc(100% + 24px);
@@ -63,17 +80,20 @@
 }
 .taskbar > div {
   margin: 6px;
-  background-color: palevioletred;
-  border-left-color: lightpink;
-  border-top-color: lightpink;
-  border-right-color: palevioletred;
-  border-bottom-color: palevioletred;
+  color: whitesmoke;
+  background-color: #d14fb3;
+  border-left-color: #433a61;
+  border-top-color: #433a61;
+  border-right-color: #d14fb3;
+  border-bottom-color: #d14fb3;
   border-style: solid;
   border-width: 4px;
 }
 .clock {
   display: inline-flex;
   box-sizing: border-box;
+  font-size: 15px;
+  align-items: center;
   gap: 50px;
   padding: 10px;
 }
@@ -84,21 +104,42 @@
 }
 .modal {
   position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  z-index: 1;
   display: flex;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
   align-items: center;
   justify-content: center;
 }
 .modalContent {
-  background-color: rgb(204, 251, 251);
+  background-color:#d14fb3;
+  max-width: 40%;
+  border-width: 6px;
+  border-color: #b7c4af;
+  border-style: solid;
   display: inline-flex;
-  position: fixed;
+  position: relative;
   padding: 6px;
   flex-direction: column;
 }
 .closeButton {
   all: unset;
+  color:white;
+  padding: 10px;
+  background-color: darkgreen;
+  border-style: solid;
+  border-width: 4px;
+  border-color: lightgreen;
+}
+h1{
+  color: #32be32;
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-shadow: 4px 4px #834bb1;
+}
+p{
+  color: whitesmoke;
+  line-height: 30px;
 }
