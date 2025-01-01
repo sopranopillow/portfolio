@@ -1,4 +1,5 @@
 import { Content } from '../components/Content';
+import { Footer } from '../components/Footer';
 import { Nav } from '../components/Nav';
 
 function Blog() {
@@ -6,6 +7,7 @@ function Blog() {
     <>
       <Nav />
       <Content title="Blog">WIP</Content>
+      <Footer />
     </>
   );
 }

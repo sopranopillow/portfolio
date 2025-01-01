@@ -1,4 +1,5 @@
 import { Content } from '../components/Content';
+import { Footer } from '../components/Footer';
 import { Nav } from '../components/Nav';
 import './Home.css';
 
@@ -60,6 +61,7 @@ function Home() {
           </p>
         </section>
       </Content>
+      <Footer />
     </>
   );
 }
