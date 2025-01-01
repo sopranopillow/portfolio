@@ -9,16 +9,6 @@
   align-items: center;
 }
 
-.active::before {
-  content: '';
-  position: absolute;
-  top: calc(100% - 8px);
-  left: 8px;
-  width: calc(100% - 16px);
-  height: 4px;
-  background-color: #2600ff;
-}
-
 .nes-btn.is-success {
   color: #000;
 }

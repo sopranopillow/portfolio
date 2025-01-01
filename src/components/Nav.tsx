@@ -8,7 +8,7 @@ const NavLinkActive: React.FC<PropsWithChildren<{ to: string; className?: string
   children,
 }) => {
   return (
-    <NavLink to={to} className={({ isActive }) => (isActive ? `active ${className}` : className)}>
+    <NavLink to={to} className={className}>
       {children}
     </NavLink>
   );
