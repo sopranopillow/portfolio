@@ -9,3 +9,12 @@
   height: 90px;
   align-self: flex-end;
 }
+
+@media (max-width: 475px) {
+  .nes-balloon > p {
+    font-size: 10px;
+  }
+  .nes-balloon {
+    left: -15px;
+  }
+}

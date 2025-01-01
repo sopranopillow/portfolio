@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "yarn build",
-    "deploy": "yarn predeploy && gh-pages -d build"
+    "deploy": "yarn predeploy && gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.3.1",
