@@ -1,30 +1,23 @@
-import React, { PropsWithChildren, StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, NavLink, Link, Route } from "react-router";
-import Home from "./Home.tsx";
-import "./main.css";
-import Hobbies from "./Hobbies.tsx";
-import Work from "./Work.tsx";
-import SideProjects from "./SideProjects.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router';
+import Home from './pages/Home.tsx';
+import './main.css';
+import Hobbies from './pages/Hobbies.tsx';
+import Work from './pages/Work.tsx';
+import SideProjects from './pages/SideProjects.tsx';
+import Blog from './pages/Blog.tsx';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/hobbies" element={<Hobbies />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/side-projects" element={<SideProjects />} />
+        <Route path="/portfolio/" element={<Home />} />
+        <Route path="/portfolio/hobbies" element={<Hobbies />} />
+        <Route path="/portfolio/work" element={<Work />} />
+        <Route path="/portfolio/side-projects" element={<SideProjects />} />
+        <Route path="/portfolio/blog" element={<Blog />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );
-
-{
-  /* <div className="nav nes-container">
-          <Route className="nes-btn is-success">Home</Route >
-          <Route className="nes-btn">Work</Route >
-          <Route className="nes-btn">Side Projects</Route >
-          <Route className="nes-btn is-warning">Hobbies</Route >
-        </div> */
-}

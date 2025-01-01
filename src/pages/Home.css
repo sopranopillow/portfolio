@@ -1,0 +1,11 @@
+.message {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.message > img {
+  width: 90px;
+  height: 90px;
+  align-self: flex-end;
+}

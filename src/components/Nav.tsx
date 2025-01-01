@@ -1,17 +1,14 @@
-import { PropsWithChildren } from "react";
-import { NavLink } from "react-router";
-import "./Nav.css";
+import { PropsWithChildren } from 'react';
+import { NavLink } from 'react-router';
+import './Nav.css';
 
-const NavLinkActive: React.FC<
-  PropsWithChildren<{ to: string; className?: string }>
-> = ({ to, className, children }) => {
+const NavLinkActive: React.FC<PropsWithChildren<{ to: string; className?: string }>> = ({
+  to,
+  className,
+  children,
+}) => {
   return (
-    <NavLink
-      to={to}
-      className={({ isActive }) =>
-        isActive ? `active ${className}` : className
-      }
-    >
+    <NavLink to={to} className={({ isActive }) => (isActive ? `active ${className}` : className)}>
       {children}
     </NavLink>
   );
@@ -20,17 +17,20 @@ const NavLinkActive: React.FC<
 export const Nav = () => {
   return (
     <nav className="nav nes-container">
-      <NavLinkActive to="/" className="nes-btn is-success">
+      <NavLinkActive to="/portfolio/" className="nes-btn is-success">
         Home
       </NavLinkActive>
-      <NavLinkActive to="/work" className="nes-btn">
+      <NavLinkActive to="/portfolio/work" className="nes-btn">
         Work
       </NavLinkActive>
-      <NavLinkActive to="/side-projects" className="nes-btn">
+      <NavLinkActive to="/portfolio/side-projects" className="nes-btn">
         Side Projects
       </NavLinkActive>
-      <NavLinkActive to="/hobbies" className="nes-btn is-warning">
+      <NavLinkActive to="/portfolio/hobbies" className="nes-btn">
         Hobbies
+      </NavLinkActive>
+      <NavLinkActive to="/portfolio/blog" className="nes-btn is-warning">
+        Blog
       </NavLinkActive>
     </nav>
   );

@@ -1,4 +1,30 @@
+html,
 body {
+  background-color: rgb(231, 231, 231);
+}
+
+#root {
   margin: 0;
   width: 100%;
+  height: 100%;
+  background-color: rgb(231, 231, 231);
+}
+
+@media (min-width: 1900px) {
+  * {
+    font-size: 30px;
+  }
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  gap: 30px;
+}
+
+.nes-list.is-circle li::before {
+  top: 0;
 }
