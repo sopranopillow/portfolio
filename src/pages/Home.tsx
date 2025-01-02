@@ -24,12 +24,12 @@ function Home() {
         <section>
           <h4>Interests</h4>
           <p>
-            My main intersts are:
+            My main interests are:
             <div className="lists">
               <ul className="nes-list is-circle">
                 <li>
-                  React: Since it's part of my daily work and has been a big area I've invested time in. I'm particulary
-                  interested in Server Side Rendering, React Server Components, and performance.
+                  React: Since it's part of my daily work and has been a big area I've invested time in. I'm
+                  particularly interested in Server Side Rendering, React Server Components, and performance.
                 </li>
                 <li>Game dev: I've done a few projects with GameMaker, Unity, and Monogame.</li>
                 <li>
